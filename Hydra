@@ -1,0 +1,121 @@
+// songone one
+solid(5, 0.2)
+    .add(voronoi()
+        .modulateRepeatX(gradient(), 1.5, ({
+            time
+        }) => Math.sin(time) * -1.963)
+        .scroll(() => -mouse.x / width, () => -mouse.y / height)
+        .modulateRepeat(noise(1, 0.2), 1))
+    .out(o0);
+    
+#################################################################
+    
+// songone two
+shape([4, 5, 6].fast(0.1)
+        .smooth(1), 0.000001, [0.2, 0.7].smooth(1))
+    .color(0.2, 0.4, 0.3)
+    .scrollX(() => Math.sin(time * 0.27))
+    .add(shape([4, 5, 6].fast(0.1)
+            .smooth(1), 0.01, [0.2, 0.168, 0.5, 0.3].smooth(1))
+        .color(0.6, 0.2, 0.5)
+        .scrollY(0.5)
+        .scrollX(() => Math.sin(time * 0.06)))
+    .add(shape([2, 5, 3].fast(0.1)
+            .smooth(1), 0.000001, [0.82, 0.9, 0.125].smooth(1))
+        .color(0.2, 0.2, 0.6)
+        .scrollY(-0.35)
+        .scrollX(() => Math.sin(time * 0.4) * -1))
+    .add(src(o0)
+        .shift(0.001, 0.01, 0.001)
+        .scrollX([0.086, -0.05].fast(0.05)
+            .smooth(1))
+        .scale([1.5, 0.9].fast(0.2)
+            .smooth(1), [1.05, 0.9, 1].fast(0.2)
+            .smooth(1)), 0.85)
+    .modulate(voronoi(5, 2, 2))
+    .out();
+
+#################################################################
+
+// songone three
+speed = 0.09;
+shape(3, 0.2)
+	.colorama(0.01)
+	.repeat(10, 40)
+	.scrollX(0.55, 0.3, 10)
+	.scrollY(0.5, 1, 10)
+	.scale(({
+		time
+	}) => Math.sin(time / 1))
+	.saturate(100)
+	.blend(o0, 0.9)
+	.blend(o0, 0.8)
+	.modulateScale(noise(1, 2, 100))
+	.out();
+  
+#################################################################
+  
+// one calm
+osc(0.5, 1.25)
+	.mult(shape(1, 0.09)
+		.rotate(1.9))
+	.diff(gradient())
+	.add(shape(5, 2)
+		.blend(gradient(1)))
+	.modulate(noise()
+		.modulate(noise()
+			.scrollY(1, 0.0625)))
+	.blend(o0)
+	.color(0.057, -0.5, -0.75)
+	.out();
+  
+#################################################################
+  
+// trancea one
+osc(16, 0.03, 2)
+	.mult(shape(5)
+		.rotate(20, 0.5)
+		.modulateScale(noise(6.01, 0.1)))
+	.out(o1);
+src(o0)
+	.modulateHue(src(o0)
+		.scale(1.03), 6.33)
+	.layer(src(o1)
+		.luma(0.2, 1e-6)
+		.rotate(2, 0.5))
+	.out();
+  
+  #################################################################
+  
+// trancea two
+src(o1)
+	.modulate(osc(8.791, 0, 1.5)
+		.brightness(-.5)
+		.modulate(osc(30, .03)
+			.sub(gradient()), 1)
+		.layer(osc(6, 0, -1.5)
+			.brightness(-.5)
+			.modulate(osc(60, .03)
+				.rotate(Math.PI / 2)
+				.sub(gradient()), 1)
+			.mask(shape(2, 0.105, 0)
+				.repeat(12, 6, 0, .5))), .003)
+	.layer(osc(3, 0, 1.5)
+		.saturate(4)
+		.pixelate(8)
+		.modulate(solid(1), () => time * .1)
+		.modulate(solid(1), -.4)
+		.mask(shape(3, .3, 0)))
+	.out(o1);
+solid()
+	.layer(o1)
+	.out();
+  
+#################################################################
+
+Shadertoy Links Used
+Credit: Jordan, nimitz, edo_m18
+https://www.shadertoy.com/view/tscGRB
+https://www.shadertoy.com/view/wddGWM
+https://www.shadertoy.com/view/3l23Rh
+https://www.shadertoy.com/view/WslGWl
